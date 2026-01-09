@@ -72,7 +72,14 @@ export async function generateWeeklyCalendar(
         });
       }
     } catch (error) {
-      console.error(`  Attempt ${attempt} failed:`, error);
+      console.error(`  Attempt ${attempt} failed:`);
+      if (error instanceof Error) {
+        console.error('    Error name:', error.name);
+        console.error('    Error message:', error.message);
+        console.error('    Error stack:', error.stack);
+      } else {
+        console.error('    Unknown error:', error);
+      }
       continue;
     }
   }
@@ -102,58 +109,72 @@ async function generateCalendarAttempt(
   state: StateStore,
   attempt: number
 ): Promise<WeeklyCalendar> {
-  // Phase 1: Generate posts (structure only, no text yet)
-  console.log('  Phase 1: Generating post structure...');
-  let posts = await generatePosts(params, state);
+  try {
+    // Phase 1: Generate posts (structure only, no text yet)
+    console.log('  Phase 1: Generating post structure...');
+    let posts = await generatePosts(params, state);
+    console.log(`    Generated ${posts.length} posts`);
 
-  // Phase 2: Generate comments (structure only)
-  console.log('  Phase 2: Generating comment structure...');
-  const comments = generateComments(posts, params.personas, state);
+    // Phase 2: Generate comments (structure only)
+    console.log('  Phase 2: Generating comment structure...');
+    const comments = generateComments(posts, params.personas, state);
+    console.log(`    Generated ${comments.length} comments`);
 
-  // Phase 3: Distribute posts temporally
-  console.log('  Phase 3: Distributing posts across week...');
-  posts = distributePostsTemporally(posts);
+    // Phase 3: Distribute posts temporally
+    console.log('  Phase 3: Distributing posts across week...');
+    posts = distributePostsTemporally(posts);
 
-  // Phase 4: Generate text with AI
-  console.log('  Phase 4: Generating text with AI...');
-  posts = await generatePostTexts(posts, params);
-  const updatedComments = await generateCommentTexts(
-    comments,
-    posts,
-    params.personas!
-  );
+    // Phase 4: Generate text with AI
+    console.log('  Phase 4: Generating text with AI...');
+    posts = await generatePostTexts(posts, params);
+    console.log('    Generated post texts');
+    
+    const updatedComments = await generateCommentTexts(
+      comments,
+      posts,
+      params.personas!
+    );
+    console.log('    Generated comment texts');
 
-  // Phase 5: Create calendar object
-  const weekId = generateWeekId();
-  const calendar: WeeklyCalendar = {
-    weekId,
-    startDate: posts[0]?.timestamp || new Date(),
-    posts,
-    comments: updatedComments,
-    qualityScore: {
-      overall: 0,
-      naturalness: 0,
-      distribution: 0,
-      consistency: 0,
-      diversity: 0,
-      timing: 0,
-      flags: [],
-    },
-    status: 'draft',
-    metadata: {
-      generatedAt: Date.now(),
-      parameters: {
-        attempt,
-        minQualityScore: params.minQualityScore,
+    // Phase 5: Create calendar object
+    const weekId = generateWeekId();
+    const calendar: WeeklyCalendar = {
+      weekId,
+      startDate: posts[0]?.timestamp || new Date(),
+      posts,
+      comments: updatedComments,
+      qualityScore: {
+        overall: 0,
+        naturalness: 0,
+        distribution: 0,
+        consistency: 0,
+        diversity: 0,
+        timing: 0,
+        flags: [],
       },
-    },
-  };
+      status: 'draft',
+      metadata: {
+        generatedAt: Date.now(),
+        parameters: {
+          attempt,
+          minQualityScore: params.minQualityScore,
+        },
+      },
+    };
 
-  // Phase 6: Score quality
-  console.log('  Phase 5: Scoring quality...');
-  calendar.qualityScore = scoreWeeklyCalendar(calendar, state);
+    // Phase 6: Score quality
+    console.log('  Phase 5: Scoring quality...');
+    calendar.qualityScore = scoreWeeklyCalendar(calendar, state);
 
-  return calendar;
+    return calendar;
+  } catch (error) {
+    console.error('  Phase failed with error:');
+    if (error instanceof Error) {
+      console.error('    Error:', error.message);
+      console.error('    Stack:', error.stack);
+    }
+    throw error;
+  }
 }
 
 // ============================================================================
