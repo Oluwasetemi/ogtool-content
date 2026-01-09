@@ -1,6 +1,15 @@
 import { StorageAdapter } from '../core/types';
 import { JSONStorageAdapter } from './json-store';
 import { MemoryStorageAdapter } from './memory-store';
+import { KVStorageAdapter } from './kv-store';
+
+/**
+ * Determines if Vercel KV is available
+ */
+function isKVAvailable(): boolean {
+  // Check if KV environment variables are set
+  return !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+}
 
 /**
  * Determines if the environment supports filesystem operations
@@ -22,16 +31,25 @@ function isFilesystemAvailable(): boolean {
 
 /**
  * Creates the appropriate storage adapter based on the environment
+ * Priority: KV > Filesystem > Memory
  */
 export function createStorageAdapter(): StorageAdapter {
-  if (isFilesystemAvailable()) {
-    console.log('Using filesystem storage (JSONStorageAdapter)');
-    return new JSONStorageAdapter();
-  } else {
-    console.log('Using in-memory storage (MemoryStorageAdapter) - data will not persist');
-    console.log('Consider using a database like Vercel KV, Postgres, or MongoDB for production');
-    return new MemoryStorageAdapter();
+  // Priority 1: Vercel KV (best for production)
+  if (isKVAvailable()) {
+    console.log('✅ Using Vercel KV storage - data persists across deployments');
+    return new KVStorageAdapter();
   }
+
+  // Priority 2: Filesystem (good for development)
+  if (isFilesystemAvailable()) {
+    console.log('📁 Using filesystem storage (JSONStorageAdapter)');
+    return new JSONStorageAdapter();
+  }
+
+  // Priority 3: Memory (fallback)
+  console.log('⚠️  Using in-memory storage (MemoryStorageAdapter) - data will not persist');
+  console.log('💡 Set up Vercel KV for production persistence: https://vercel.com/docs/storage/vercel-kv');
+  return new MemoryStorageAdapter();
 }
 
 // Export singleton instance
