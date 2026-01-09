@@ -7,6 +7,17 @@ import { storage } from '@/lib/state/storage-factory';
  */
 export async function POST(request: Request) {
   try {
+    // Check for OpenAI API key
+    if (!process.env.OPENAI_API_KEY) {
+      return NextResponse.json(
+        { 
+          error: 'OpenAI API key not configured',
+          message: 'Please set OPENAI_API_KEY environment variable in Vercel dashboard.',
+        },
+        { status: 500 }
+      );
+    }
+
     const body = await request.json();
     const { minQualityScore = 7.0, postsPerWeek = 3 } = body;
 
@@ -92,10 +103,22 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error('Error generating calendar:', error);
+    
+    // Log detailed error information
+    if (error instanceof Error) {
+      console.error('Error name:', error.name);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
+    
     return NextResponse.json(
       {
         error: 'Failed to generate calendar',
         message: error instanceof Error ? error.message : 'Unknown error',
+        details: error instanceof Error ? {
+          name: error.name,
+          stack: error.stack?.split('\n').slice(0, 3).join('\n')
+        } : undefined,
       },
       { status: 500 }
     );
