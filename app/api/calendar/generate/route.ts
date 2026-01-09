@@ -1,21 +1,30 @@
 import { NextResponse } from 'next/server';
 import { generateAndSaveCalendar } from '@/lib/core/calendar-generator';
 import { storage } from '@/lib/state/storage-factory';
+import { checkEnvironment } from '@/lib/utils/env-check';
 
 /**
  * POST /api/calendar/generate - Generate a new calendar
  */
 export async function POST(request: Request) {
   try {
-    // Check for OpenAI API key
-    if (!process.env.OPENAI_API_KEY) {
+    // Check environment variables
+    const envCheck = checkEnvironment();
+    if (!envCheck.valid) {
+      console.error('Environment check failed:', envCheck.errors);
       return NextResponse.json(
-        { 
-          error: 'OpenAI API key not configured',
-          message: 'Please set OPENAI_API_KEY environment variable in Vercel dashboard.',
+        {
+          error: 'Environment configuration error',
+          message: envCheck.errors.join(', '),
+          details: envCheck,
         },
         { status: 500 }
       );
+    }
+
+    // Log warnings
+    if (envCheck.warnings.length > 0) {
+      console.warn('Environment warnings:', envCheck.warnings);
     }
 
     const body = await request.json();

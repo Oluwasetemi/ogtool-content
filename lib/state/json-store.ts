@@ -85,11 +85,49 @@ export class JSONStorageAdapter implements StorageAdapter {
    */
   async loadState(): Promise<StateStore> {
     const statePath = path.join(this.dataDir, 'state.json');
-    const state = await this.loadJSON<StateStore>(statePath);
 
-    // Convert timestamp strings back to numbers if needed
-    // (JSON doesn't distinguish between number and string for timestamps)
-    return this.deserializeState(state);
+    try {
+      const state = await this.loadJSON<StateStore>(statePath);
+      // Convert timestamp strings back to numbers if needed
+      // (JSON doesn't distinguish between number and string for timestamps)
+      return this.deserializeState(state);
+    } catch (error) {
+      if ((error as Error).message.includes('File not found')) {
+        console.log('State file not found, initializing new state');
+        // Return default initialized state
+        return this.getDefaultState();
+      }
+      throw error;
+    }
+  }
+
+  /**
+   * Get default initialized state
+   */
+  private getDefaultState(): StateStore {
+    return {
+      history: {
+        weeks: [],
+        totalPosts: 0,
+        totalComments: 0,
+      },
+      quotas: {
+        personaUsage: {},
+        subredditUsage: {},
+        keywordUsage: {},
+      },
+      patterns: {
+        personaPairings: {},
+        subredditRotation: [],
+        timingPatterns: [],
+      },
+      qualityMetrics: {
+        averageNaturalnessScore: 0,
+        averagePersonaConsistency: 0,
+        averageDistributionBalance: 0,
+        weeklyScores: [],
+      },
+    };
   }
 
   /**

@@ -38,13 +38,22 @@ export async function generateWeeklyCalendar(
   
   // Validate state structure
   console.log('State loaded:', {
+    hasHistory: !!currentState.history,
     hasQuotas: !!currentState.quotas,
-    hasSubredditUsage: !!currentState.quotas?.subredditUsage,
-    hasPersonaUsage: !!currentState.quotas?.personaUsage,
-    hasKeywordUsage: !!currentState.quotas?.keywordUsage,
+    hasPatterns: !!currentState.patterns,
+    hasQualityMetrics: !!currentState.qualityMetrics,
   });
-  
-  // Ensure quotas exist (defensive programming)
+
+  // Ensure all state properties exist (defensive programming)
+  if (!currentState.history) {
+    console.warn('State history missing, initializing...');
+    currentState.history = {
+      weeks: [],
+      totalPosts: 0,
+      totalComments: 0,
+    };
+  }
+
   if (!currentState.quotas) {
     console.warn('State quotas missing, initializing...');
     currentState.quotas = {
@@ -64,6 +73,25 @@ export async function generateWeeklyCalendar(
   if (!currentState.quotas.keywordUsage) {
     console.warn('State quotas.keywordUsage missing, initializing...');
     currentState.quotas.keywordUsage = {};
+  }
+
+  if (!currentState.patterns) {
+    console.warn('State patterns missing, initializing...');
+    currentState.patterns = {
+      personaPairings: {},
+      subredditRotation: [],
+      timingPatterns: [],
+    };
+  }
+
+  if (!currentState.qualityMetrics) {
+    console.warn('State qualityMetrics missing, initializing...');
+    currentState.qualityMetrics = {
+      averageNaturalnessScore: 0,
+      averagePersonaConsistency: 0,
+      averageDistributionBalance: 0,
+      weeklyScores: [],
+    };
   }
 
   const maxAttempts = ALGORITHM_CONFIG.thresholds.maxRetries;

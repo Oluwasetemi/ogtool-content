@@ -50,6 +50,16 @@ export async function generatePostTitle(
     return applyNaturalness(text.trim(), persona);
   } catch (error) {
     console.error('Error generating post title:', error);
+    if (error instanceof Error) {
+      console.error('  Error name:', error.name);
+      console.error('  Error message:', error.message);
+      console.error('  Error stack:', error.stack?.substring(0, 500));
+    }
+    // Check for specific OpenAI errors
+    if (error && typeof error === 'object' && 'status' in error) {
+      console.error('  API Status:', (error as any).status);
+      console.error('  API Response:', JSON.stringify(error).substring(0, 500));
+    }
     // Fallback to template
     return generateTemplateTitleFallback(topic, keyword);
   }
@@ -77,6 +87,9 @@ export async function generatePostBody(
     return applyNaturalness(text.trim(), persona);
   } catch (error) {
     console.error('Error generating post body:', error);
+    if (error instanceof Error) {
+      console.error('  Error details:', error.message);
+    }
     return ''; // Many posts have empty body
   }
 }
@@ -107,6 +120,9 @@ export async function generateInitialComment(
     return applyNaturalness(text.trim(), persona);
   } catch (error) {
     console.error('Error generating initial comment:', error);
+    if (error instanceof Error) {
+      console.error('  Error details:', error.message);
+    }
     return generateTemplateCommentFallback(persona);
   }
 }
