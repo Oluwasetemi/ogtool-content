@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function SetupPage() {
@@ -48,9 +48,11 @@ export default function SetupPage() {
     }
   };
 
-  useState(() => {
+  // Load status on mount
+  useEffect(() => {
     checkStatus();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50">
