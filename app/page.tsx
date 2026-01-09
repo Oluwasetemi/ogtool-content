@@ -1,25 +1,29 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { CalendarCard } from '@/components/calendar/calendar-card';
 
-// Force dynamic rendering to avoid build-time fetch issues
-export const dynamic = 'force-dynamic';
+export default function Home() {
+  const [calendars, setCalendars] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-async function getCalendars() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/calendar`, {
-      cache: 'no-store', // Don't cache during build
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.calendars || [];
-  } catch (error) {
-    console.error('Error fetching calendars:', error);
-    return [];
-  }
-}
-
-export default async function Home() {
-  const calendars = await getCalendars();
+  useEffect(() => {
+    async function fetchCalendars() {
+      try {
+        const res = await fetch('/api/calendar');
+        if (res.ok) {
+          const data = await res.json();
+          setCalendars(data.calendars || []);
+        }
+      } catch (error) {
+        console.error('Error fetching calendars:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchCalendars();
+  }, []);
 
   const stats = {
     total: calendars.length,
@@ -115,7 +119,12 @@ export default async function Home() {
         {/* Recent Calendars */}
         <div>
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Recent Calendars</h2>
-          {calendars.length === 0 ? (
+          {isLoading ? (
+            <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
+              <div className="animate-spin w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+              <p className="text-gray-600">Loading calendars...</p>
+            </div>
+          ) : calendars.length === 0 ? (
             <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
               <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
