@@ -1,10 +1,13 @@
 import Link from 'next/link';
 import { CalendarCard } from '@/components/calendar/calendar-card';
 
+// Force dynamic rendering to avoid build-time fetch issues
+export const dynamic = 'force-dynamic';
+
 async function getCalendars() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/calendar`, {
-      next: { revalidate: 60 }, // Revalidate every 60 seconds
+      cache: 'no-store', // Don't cache during build
     });
     if (!res.ok) return [];
     const data = await res.json();
