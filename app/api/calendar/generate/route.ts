@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { generateAndSaveCalendar } from '@/lib/core/calendar-generator';
-import { jsonStorage } from '@/lib/state/json-store';
+import { storage } from '@/lib/state/storage-factory';
 
 /**
  * POST /api/calendar/generate - Generate a new calendar
@@ -26,9 +26,40 @@ export async function POST(request: Request) {
     }
 
     // Load configuration
-    const companyInfo = await jsonStorage.loadCompanyInfo();
-    const personas = await jsonStorage.loadPersonas();
-    const keywords = await jsonStorage.loadKeywords();
+    const companyInfo = await storage.loadCompanyInfo();
+    const personas = await storage.loadPersonas();
+    const keywords = await storage.loadKeywords();
+
+    // Validate required data
+    if (!personas || personas.length === 0) {
+      return NextResponse.json(
+        { 
+          error: 'No personas configured',
+          message: 'Please set up personas in your storage. Visit /api/seed to initialize data.',
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!keywords || keywords.length === 0) {
+      return NextResponse.json(
+        { 
+          error: 'No keywords configured',
+          message: 'Please set up keywords in your storage. Visit /api/seed to initialize data.',
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!companyInfo.subreddits || companyInfo.subreddits.length === 0) {
+      return NextResponse.json(
+        { 
+          error: 'No subreddits configured',
+          message: 'Please configure subreddits in your company settings.',
+        },
+        { status: 400 }
+      );
+    }
 
     // Generate calendar
     const calendar = await generateAndSaveCalendar(
