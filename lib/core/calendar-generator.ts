@@ -35,6 +35,36 @@ export async function generateWeeklyCalendar(
 ): Promise<WeeklyCalendar> {
   // Load state if not provided
   const currentState = state || (await stateManager.loadState());
+  
+  // Validate state structure
+  console.log('State loaded:', {
+    hasQuotas: !!currentState.quotas,
+    hasSubredditUsage: !!currentState.quotas?.subredditUsage,
+    hasPersonaUsage: !!currentState.quotas?.personaUsage,
+    hasKeywordUsage: !!currentState.quotas?.keywordUsage,
+  });
+  
+  // Ensure quotas exist (defensive programming)
+  if (!currentState.quotas) {
+    console.warn('State quotas missing, initializing...');
+    currentState.quotas = {
+      personaUsage: {},
+      subredditUsage: {},
+      keywordUsage: {},
+    };
+  }
+  if (!currentState.quotas.subredditUsage) {
+    console.warn('State quotas.subredditUsage missing, initializing...');
+    currentState.quotas.subredditUsage = {};
+  }
+  if (!currentState.quotas.personaUsage) {
+    console.warn('State quotas.personaUsage missing, initializing...');
+    currentState.quotas.personaUsage = {};
+  }
+  if (!currentState.quotas.keywordUsage) {
+    console.warn('State quotas.keywordUsage missing, initializing...');
+    currentState.quotas.keywordUsage = {};
+  }
 
   const maxAttempts = ALGORITHM_CONFIG.thresholds.maxRetries;
   let bestCalendar: WeeklyCalendar | null = null;
