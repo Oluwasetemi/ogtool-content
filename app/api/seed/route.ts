@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { kvStorage } from '@/lib/state/kv-store';
+import { storage } from '@/lib/state/storage-factory';
 import { promises as fs } from 'fs';
 import path from 'path';
 
@@ -47,12 +47,26 @@ export async function POST() {
       console.log('No keywords.json found');
     }
 
-    // Seed KV with data
-    await kvStorage.seedData({
-      company,
-      personas,
-      keywords,
-    });
+    // Seed storage with data (works with any adapter)
+    if ('seedData' in storage && typeof storage.seedData === 'function') {
+      await storage.seedData({
+        company,
+        personas,
+        keywords,
+      });
+    } else {
+      // For adapters without seedData method, we can't seed
+      // This is expected for JSONStorageAdapter which uses file system directly
+      return NextResponse.json({
+        success: true,
+        message: 'Filesystem storage detected - data already available from files',
+        data: {
+          company: !!company,
+          personas: personas.length,
+          keywords: keywords.length,
+        },
+      });
+    }
 
     return NextResponse.json({
       success: true,
@@ -81,10 +95,10 @@ export async function POST() {
  */
 export async function GET() {
   try {
-    const company = await kvStorage.loadCompanyInfo();
-    const personas = await kvStorage.loadPersonas();
-    const keywords = await kvStorage.loadKeywords();
-    const calendars = await kvStorage.listCalendars();
+    const company = await storage.loadCompanyInfo();
+    const personas = await storage.loadPersonas();
+    const keywords = await storage.loadKeywords();
+    const calendars = await storage.listCalendars();
 
     return NextResponse.json({
       success: true,
