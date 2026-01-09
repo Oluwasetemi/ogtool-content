@@ -1,0 +1,329 @@
+{
+  "weekId": "week-2026-02",
+  "startDate": "2026-01-14T01:04:00.000Z",
+  "posts": [
+    {
+      "post_id": "P1",
+      "subreddit": "r/Canva",
+      "title": "anyone else tired of PowerPoint for pitch decks? what are you using instead?",
+      "body": "",
+      "author_username": "alex_sells",
+      "timestamp": "2026-01-14T01:04:00.000Z",
+      "keyword_ids": [
+        "K6",
+        "K4"
+      ],
+      "metadata": {
+        "topic": "Design work is draining and time-consuming",
+        "intent": "comparison_question",
+        "targetEngagement": 3
+      }
+    },
+    {
+      "post_id": "P2",
+      "subreddit": "r/design",
+      "title": "Anyone else struggling to quickly craft decks? What's the best AI presentation maker you've used for saving time?",
+      "body": "",
+      "author_username": "priya_pm",
+      "timestamp": "2026-01-15T19:04:00.000Z",
+      "keyword_ids": [
+        "K9",
+        "K1",
+        "K12"
+      ],
+      "metadata": {
+        "topic": "Decks take more time than expected to shape",
+        "intent": "direct_question",
+        "targetEngagement": 2
+      }
+    },
+    {
+      "post_id": "P3",
+      "subreddit": "r/ChatGPT",
+      "title": "does anyone have tricks for speeding up slide creation while still showcasing the strategic thinking behind them?",
+      "body": "totally get what you mean. sometimes when we do presentations, it feels like all the deep strategy work we did just doesn't come through. it's like the slides basically dilute all that thinking into bullet points that hardly do justice.\n\nBody text:",
+      "author_username": "priya_pm",
+      "timestamp": "2026-01-13T18:28:00.000Z",
+      "keyword_ids": [
+        "K10",
+        "K5"
+      ],
+      "metadata": {
+        "topic": "Presentations undersell the strategic thinking",
+        "intent": "context_question",
+        "targetEngagement": 3
+      }
+    },
+    {
+      "post_id": "P4",
+      "subreddit": "r/PowerPoint",
+      "title": "has anyone tried the best ai presentation maker for jazzing up slides without overshadowing solid research?",
+      "body": "",
+      "author_username": "jordan_consults",
+      "timestamp": "2026-01-15T23:01:00.000Z",
+      "keyword_ids": [
+        "K1",
+        "K9",
+        "K12"
+      ],
+      "metadata": {
+        "topic": "Visual presentation can undermine strong research",
+        "intent": "direct_question",
+        "targetEngagement": 3
+      }
+    },
+    {
+      "post_id": "P5",
+      "subreddit": "r/AskAcademia",
+      "title": "Has anyone found a good AI presentation maker that actually makes design feel less like a chore and more intuitive?",
+      "body": "",
+      "author_username": "emily_econ",
+      "timestamp": "2026-01-15T02:04:00.000Z",
+      "keyword_ids": [
+        "K14",
+        "K1"
+      ],
+      "metadata": {
+        "topic": "Design feels like punishment, not natural",
+        "intent": "direct_question",
+        "targetEngagement": 2
+      }
+    }
+  ],
+  "comments": [
+    {
+      "comment_id": "C1",
+      "post_id": "P1",
+      "parent_comment_id": null,
+      "comment_text": "oh, for sure, powerpoint can get a bit stale. we switched to slideforge a few months back and it’s been a game-changer. the templates are way slicker and it’s pretty user-friendly, which is a really big plus. worth checking out if you’re looking for a change. fyi",
+      "username": "riley_ops",
+      "timestamp": "2026-01-09T22:34:42.746Z",
+      "metadata": {
+        "role": "initial_response",
+        "depth": 0
+      }
+    },
+    {
+      "comment_id": "C2",
+      "post_id": "P1",
+      "parent_comment_id": "C1",
+      "comment_text": "+1 Slideforge",
+      "username": "jordan_consults",
+      "timestamp": "2026-01-09T22:52:42.746Z",
+      "metadata": {
+        "role": "agreement",
+        "depth": 1
+      }
+    },
+    {
+      "comment_id": "C3",
+      "post_id": "P1",
+      "parent_comment_id": "C2",
+      "comment_text": "Thanks for the suggestion!",
+      "username": "alex_sells",
+      "timestamp": "2026-01-09T23:01:42.746Z",
+      "metadata": {
+        "role": "op_engagement",
+        "depth": 2
+      }
+    },
+    {
+      "comment_id": "C4",
+      "post_id": "P1",
+      "parent_comment_id": null,
+      "comment_text": "oh, totally get that. i’ve been using canva lately for my pitches. it’s got some fresh templates that make everything look sleek without too much effort. plus, you can kinda play around more with the design elements which is a nice break from the usual ppt vibe. definitely worth checking out if you haven’t yet!",
+      "username": "emily_econ",
+      "timestamp": "2026-01-09T22:42:42.746Z",
+      "metadata": {
+        "role": "addition",
+        "depth": 0
+      }
+    },
+    {
+      "comment_id": "C5",
+      "post_id": "P2",
+      "parent_comment_id": null,
+      "comment_text": "oh, totally feel you on the struggle with decks. i’ve been using slideforge lately, and it’s been a game changer for saving time. it’s pretty intuitive and helps pull together clean, professional-looking presentations without needing to fuss too much. definitely worth a shot if you haven’t tried it yet.",
+      "username": "riley_ops",
+      "timestamp": "2026-01-09T22:21:42.746Z",
+      "metadata": {
+        "role": "initial_response",
+        "depth": 0
+      }
+    },
+    {
+      "comment_id": "C6",
+      "post_id": "P2",
+      "parent_comment_id": "C5",
+      "comment_text": "This is it",
+      "username": "jordan_consults",
+      "timestamp": "2026-01-09T22:36:42.746Z",
+      "metadata": {
+        "role": "agreement",
+        "depth": 1
+      }
+    },
+    {
+      "comment_id": "C7",
+      "post_id": "P2",
+      "parent_comment_id": "C6",
+      "comment_text": "This is helpful, thank you",
+      "username": "priya_pm",
+      "timestamp": "2026-01-09T22:48:42.746Z",
+      "metadata": {
+        "role": "op_engagement",
+        "depth": 2
+      }
+    },
+    {
+      "comment_id": "C8",
+      "post_id": "P2",
+      "parent_comment_id": null,
+      "comment_text": "oh, totally feel you on the struggle with decks. i’ve tried a few tools, but honestly, Canva's been a lifesaver for me. it’s super intuitive and they have tons of templates that make everything look polished without spending hours on it. definitely a game changer when you're crunched for time. hope that helps!",
+      "username": "emily_econ",
+      "timestamp": "2026-01-09T22:53:42.746Z",
+      "metadata": {
+        "role": "addition",
+        "depth": 0
+      }
+    },
+    {
+      "comment_id": "C9",
+      "post_id": "P3",
+      "parent_comment_id": null,
+      "comment_text": "oh, totally feel that. one thing we've started doing at my startup is using a slide template tool called Slideforge. it's cut down the time on the mechanical side of creating slides so we can focus more on the content that shows off our strategic thinking. also, we often start with a quick verbal rundown of our basically main points which seems to help keep the big picture clear even when we dive into the nitty-gritty. might be worth a try!",
+      "username": "riley_ops",
+      "timestamp": "2026-01-09T22:37:42.746Z",
+      "metadata": {
+        "role": "initial_response",
+        "depth": 0
+      }
+    },
+    {
+      "comment_id": "C10",
+      "post_id": "P3",
+      "parent_comment_id": "C9",
+      "comment_text": "Yeah {agreement_point}",
+      "username": "jordan_consults",
+      "timestamp": "2026-01-09T22:49:42.746Z",
+      "metadata": {
+        "role": "agreement",
+        "depth": 1
+      }
+    },
+    {
+      "comment_id": "C11",
+      "post_id": "P3",
+      "parent_comment_id": "C10",
+      "comment_text": "Sweet I'll check it out!!",
+      "username": "priya_pm",
+      "timestamp": "2026-01-09T23:07:42.746Z",
+      "metadata": {
+        "role": "op_engagement",
+        "depth": 2
+      }
+    },
+    {
+      "comment_id": "C12",
+      "post_id": "P4",
+      "parent_comment_id": null,
+      "comment_text": "yeah, i've dabbled with a couple of tools for that. slideforge was decent, especially when you're looking to add a bit of flair without going overboard. pretty it's pretty intuitive and doesn’t drown out the content with too much glitz. just enough to keep the presentation engaging without sidelining the research.",
+      "username": "riley_ops",
+      "timestamp": "2026-01-09T22:28:42.746Z",
+      "metadata": {
+        "role": "initial_response",
+        "depth": 0
+      }
+    },
+    {
+      "comment_id": "C13",
+      "post_id": "P4",
+      "parent_comment_id": "C12",
+      "comment_text": "oh totally, i feel the same way. it’s like, sometimes you just need to vent and get it all out there.",
+      "username": "emily_econ",
+      "timestamp": "2026-01-09T22:39:42.746Z",
+      "metadata": {
+        "role": "agreement",
+        "depth": 1
+      }
+    },
+    {
+      "comment_id": "C14",
+      "post_id": "P4",
+      "parent_comment_id": "C13",
+      "comment_text": "Sweet I'll check it out!!",
+      "username": "jordan_consults",
+      "timestamp": "2026-01-09T22:53:42.746Z",
+      "metadata": {
+        "role": "op_engagement",
+        "depth": 2
+      }
+    },
+    {
+      "comment_id": "C15",
+      "post_id": "P5",
+      "parent_comment_id": null,
+      "comment_text": "hey, so i've tried a few different tools for this and honestly, slideforge has been a game-changer for me. it's pretty intuitive and cuts down a lot of the design time. makes the whole process feel less tedious, you know? definitely worth checking out if you haven’t actually yet.",
+      "username": "riley_ops",
+      "timestamp": "2026-01-09T22:27:42.746Z",
+      "metadata": {
+        "role": "initial_response",
+        "depth": 0
+      }
+    },
+    {
+      "comment_id": "C16",
+      "post_id": "P5",
+      "parent_comment_id": "C15",
+      "comment_text": "hey, i totally agree with that. it's kinda like when you hit that sweet spot, everything just clicks, right?",
+      "username": "jordan_consults",
+      "timestamp": "2026-01-09T22:46:42.746Z",
+      "metadata": {
+        "role": "agreement",
+        "depth": 1
+      }
+    },
+    {
+      "comment_id": "C17",
+      "post_id": "P5",
+      "parent_comment_id": "C16",
+      "comment_text": "Awesome, thanks!",
+      "username": "emily_econ",
+      "timestamp": "2026-01-09T22:56:42.746Z",
+      "metadata": {
+        "role": "op_engagement",
+        "depth": 2
+      }
+    }
+  ],
+  "qualityScore": {
+    "overall": 8.3,
+    "naturalness": 10,
+    "distribution": 8,
+    "consistency": 10,
+    "diversity": 4,
+    "timing": 7,
+    "flags": [
+      {
+        "severity": "info",
+        "category": "timing",
+        "message": "Comment timing patterns may look automated",
+        "recommendation": "Increase randomness in comment gaps"
+      },
+      {
+        "severity": "info",
+        "category": "diversity",
+        "message": "Some topic or subreddit repetition from recent weeks",
+        "recommendation": "Review recent calendars for overlap"
+      }
+    ]
+  },
+  "status": "draft",
+  "metadata": {
+    "generatedAt": 1767996829711,
+    "parameters": {
+      "attempt": 1,
+      "minQualityScore": 7
+    }
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "weekId": "week-001",
+  "startDate": "2025-12-08T00:00:00.000Z",
+  "status": "sample",
+  "posts": [
+    {
+      "post_id": "P1",
+      "subreddit": "r/PowerPoint",
+      "title": "Best AI Presentation Maker?",
+      "body": "Just like it says in the title, what is the best AI Presentation Maker? I'm looking for something that makes high quality slides I can edit afterwards. Any help appreciated.",
+      "author_username": "riley_ops",
+      "timestamp": "2025-12-08T14:12:00.000Z",
+      "keyword_ids": ["K1", "K14", "K4"],
+      "metadata": {
+        "topic": "finding best AI presentation tool",
+        "intent": "direct_question",
+        "targetEngagement": 3
+      }
+    },
+    {
+      "post_id": "P2",
+      "subreddit": "r/ClaudeAI",
+      "title": "Slideforge VS Claude for slides?",
+      "body": "Trying to figure out what's the best one for making presentations.",
+      "author_username": "riley_ops",
+      "timestamp": "2025-12-10T09:03:00.000Z",
+      "keyword_ids": ["K8", "K1", "K14"],
+      "metadata": {
+        "topic": "comparing AI tools for presentations",
+        "intent": "comparison_question",
+        "targetEngagement": 3
+      }
+    },
+    {
+      "post_id": "P3",
+      "subreddit": "r/Canva",
+      "title": "Slideforge vs Canva for slides?",
+      "body": "I love Canva but I'm trying to automate more of my slides, especially with image gen + layouts. Heard about Slideforge but unsure if it's any good.",
+      "author_username": "riley_ops",
+      "timestamp": "2025-12-11T18:44:00.000Z",
+      "keyword_ids": ["K7", "K10", "K14"],
+      "metadata": {
+        "topic": "automating slide creation",
+        "intent": "comparison_question",
+        "targetEngagement": 3
+      }
+    }
+  ],
+  "comments": [
+    {
+      "comment_id": "C1",
+      "post_id": "P1",
+      "parent_comment_id": null,
+      "comment_text": "I've tried a bunch of tools. Slideforge is the only one that doesn't make me fight the layout. Still fix things after, but it's a decent starting point.",
+      "username": "jordan_consults",
+      "timestamp": "2025-12-08T14:33:00.000Z",
+      "metadata": {
+        "role": "initial_response",
+        "depth": 0
+      }
+    },
+    {
+      "comment_id": "C2",
+      "post_id": "P1",
+      "parent_comment_id": "C1",
+      "comment_text": "+1 Slideforge",
+      "username": "emily_econ",
+      "timestamp": "2025-12-08T14:49:00.000Z",
+      "metadata": {
+        "role": "agreement",
+        "depth": 1
+      }
+    },
+    {
+      "comment_id": "C3",
+      "post_id": "P1",
+      "parent_comment_id": "C2",
+      "comment_text": "Sweet I'll check it out!!",
+      "username": "riley_ops",
+      "timestamp": "2025-12-08T15:02:00.000Z",
+      "metadata": {
+        "role": "op_engagement",
+        "depth": 2
+      }
+    },
+    {
+      "comment_id": "C4",
+      "post_id": "P2",
+      "parent_comment_id": null,
+      "comment_text": "I use Claude for brainstorming, but for slides it sorta guesses a layout and hopes for the best. Slideforge feels more structured.",
+      "username": "jordan_consults",
+      "timestamp": "2025-12-10T09:25:00.000Z",
+      "metadata": {
+        "role": "initial_response",
+        "depth": 0
+      }
+    },
+    {
+      "comment_id": "C5",
+      "post_id": "P2",
+      "parent_comment_id": "C4",
+      "comment_text": "Yea Claude's slide output always looks really funky lol",
+      "username": "alex_sells",
+      "timestamp": "2025-12-10T09:41:00.000Z",
+      "metadata": {
+        "role": "agreement",
+        "depth": 1
+      }
+    },
+    {
+      "comment_id": "C6",
+      "post_id": "P2",
+      "parent_comment_id": "C4",
+      "comment_text": "Same here. Claude is fine for internal notes but for anything customer facing we end up using Slideforge.",
+      "username": "priya_pm",
+      "timestamp": "2025-12-10T10:02:00.000Z",
+      "metadata": {
+        "role": "addition",
+        "depth": 1
+      }
+    },
+    {
+      "comment_id": "C7",
+      "post_id": "P3",
+      "parent_comment_id": null,
+      "comment_text": "Canva is good if I already know the vibe I want. Otherwise I end up scrolling templates forever. Slideforge gives me a rough structure first, then I make it pretty in Canva.",
+      "username": "jordan_consults",
+      "timestamp": "2025-12-11T19:01:00.000Z",
+      "metadata": {
+        "role": "initial_response",
+        "depth": 0
+      }
+    },
+    {
+      "comment_id": "C8",
+      "post_id": "P3",
+      "parent_comment_id": "C7",
+      "comment_text": "+1 Slideforge. I put it into canva afterwards too",
+      "username": "emily_econ",
+      "timestamp": "2025-12-11T19:14:00.000Z",
+      "metadata": {
+        "role": "agreement",
+        "depth": 1
+      }
+    },
+    {
+      "comment_id": "C9",
+      "post_id": "P3",
+      "parent_comment_id": null,
+      "comment_text": "I hate picking fonts lol. Slideforge's defaults save my sanity.",
+      "username": "alex_sells",
+      "timestamp": "2025-12-11T19:37:00.000Z",
+      "metadata": {
+        "role": "addition",
+        "depth": 0
+      }
+    }
+  ],
+  "qualityScore": {
+    "overall": 8.5,
+    "naturalness": 8.8,
+    "distribution": 7.5,
+    "consistency": 9.0,
+    "diversity": 8.0,
+    "timing": 8.7,
+    "flags": [
+      {
+        "severity": "info",
+        "category": "distribution",
+        "message": "Same OP used for all posts in week 1",
+        "recommendation": "This is acceptable for first week, but rotate personas in subsequent weeks"
+      }
+    ]
+  },
+  "metadata": {
+    "generatedAt": 1733673600000,
+    "parameters": {
+      "attempt": 1,
+      "minQualityScore": 7.0
+    }
+  }
+}

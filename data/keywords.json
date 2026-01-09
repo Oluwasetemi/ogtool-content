@@ -1,0 +1,130 @@
+[
+  {
+    "id": "K1",
+    "keyword": "best ai presentation maker",
+    "semantics": {
+      "terms": ["best", "ai", "presentation", "maker"],
+      "intent": "recommendation"
+    }
+  },
+  {
+    "id": "K2",
+    "keyword": "ai slide deck tool",
+    "semantics": {
+      "terms": ["ai", "slide", "deck", "tool"],
+      "intent": "recommendation"
+    }
+  },
+  {
+    "id": "K3",
+    "keyword": "pitch deck generator",
+    "semantics": {
+      "terms": ["pitch", "deck", "generator"],
+      "intent": "creation"
+    }
+  },
+  {
+    "id": "K4",
+    "keyword": "alternatives to PowerPoint",
+    "semantics": {
+      "terms": ["alternatives", "powerpoint"],
+      "intent": "comparison"
+    }
+  },
+  {
+    "id": "K5",
+    "keyword": "how to make slides faster",
+    "semantics": {
+      "terms": ["make", "slides", "faster", "speed"],
+      "intent": "efficiency"
+    }
+  },
+  {
+    "id": "K6",
+    "keyword": "design help for slides",
+    "semantics": {
+      "terms": ["design", "help", "slides"],
+      "intent": "assistance"
+    }
+  },
+  {
+    "id": "K7",
+    "keyword": "Canva alternative for presentations",
+    "semantics": {
+      "terms": ["canva", "alternative", "presentations"],
+      "intent": "comparison"
+    }
+  },
+  {
+    "id": "K8",
+    "keyword": "Claude vs Slideforge",
+    "semantics": {
+      "terms": ["claude", "slideforge", "comparison"],
+      "intent": "comparison"
+    }
+  },
+  {
+    "id": "K9",
+    "keyword": "best tool for business decks",
+    "semantics": {
+      "terms": ["best", "tool", "business", "decks"],
+      "intent": "recommendation"
+    }
+  },
+  {
+    "id": "K10",
+    "keyword": "automate my presentations",
+    "semantics": {
+      "terms": ["automate", "presentations"],
+      "intent": "automation"
+    }
+  },
+  {
+    "id": "K11",
+    "keyword": "need help with pitch deck",
+    "semantics": {
+      "terms": ["help", "pitch", "deck"],
+      "intent": "assistance"
+    }
+  },
+  {
+    "id": "K12",
+    "keyword": "tools for consultants",
+    "semantics": {
+      "terms": ["tools", "consultants"],
+      "intent": "recommendation"
+    }
+  },
+  {
+    "id": "K13",
+    "keyword": "tools for startups",
+    "semantics": {
+      "terms": ["tools", "startups"],
+      "intent": "recommendation"
+    }
+  },
+  {
+    "id": "K14",
+    "keyword": "best ai design tool",
+    "semantics": {
+      "terms": ["best", "ai", "design", "tool"],
+      "intent": "recommendation"
+    }
+  },
+  {
+    "id": "K15",
+    "keyword": "Google Slides alternative",
+    "semantics": {
+      "terms": ["google", "slides", "alternative"],
+      "intent": "comparison"
+    }
+  },
+  {
+    "id": "K16",
+    "keyword": "best storytelling tool",
+    "semantics": {
+      "terms": ["best", "storytelling", "tool"],
+      "intent": "recommendation"
+    }
+  }
+]

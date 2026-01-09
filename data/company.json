@@ -1,0 +1,60 @@
+{
+  "name": "SlideForge",
+  "website": "slideforge.ai",
+  "description": "Slideforge is an AI-powered presentation and storytelling tool that turns outlines or rough notes into polished, professional slide decks.\n\nUsers can paste content, choose a style, and let the AI generate structured layouts, visuals, and narrative flow that are fully editable.\n\nSlideforge supports exporting to PowerPoint, Google Slides, and PDF, and can produce branded templates automatically.\n\nThey also offer an API so teams can integrate Slideforge's slide-generation engine into internal tools or workflows.\n\nSlideforge positions their \"Solutions\" for operators, consultants, founders, sales teams, educators, and anyone who needs to present ideas quickly with consistent quality.",
+  "icp": [
+    {
+      "segment": "Startup Operators",
+      "profile": "Need investor updates, internal strategy decks, and cross-team docs that look polished without spending hours formatting",
+      "appeal": "Slideforge creates structured narratives and clean layouts automatically, saving time and improving clarity"
+    },
+    {
+      "segment": "Consultants / Agencies / Freelancers",
+      "profile": "Produce client decks, research summaries, market maps, and proposals under tight deadlines",
+      "appeal": "Slideforge provides fast, consistent visuals and reusable storytelling patterns that elevate client deliverables"
+    },
+    {
+      "segment": "Sales Teams",
+      "profile": "Need pitch decks tailored to different prospects, with branding and structure intact",
+      "appeal": "Slideforge ensures consistency across reps while allowing quick personalization"
+    },
+    {
+      "segment": "Educators / Trainers / Students",
+      "profile": "Create teaching materials, lecture slides, group project decks, and academic presentations",
+      "appeal": "Slideforge helps skip the blank slide problem and generates clean, professional formatting"
+    },
+    {
+      "segment": "Prosumers / Content Creators",
+      "profile": "Produce explainer decks, slide threads, or social content without design skills",
+      "appeal": "Slideforge turns ideas into editable visuals that look intentionally designed"
+    },
+    {
+      "segment": "Developers / Platforms",
+      "profile": "Want to embed slide-generation into apps, workflows, or automation systems",
+      "appeal": "The API gives direct access to Slideforge's narrative and layout engine"
+    }
+  ],
+  "subreddits": [
+    "r/PowerPoint",
+    "r/GoogleSlides",
+    "r/consulting",
+    "r/marketing",
+    "r/entrepreneur",
+    "r/startups",
+    "r/smallbusiness",
+    "r/business",
+    "r/productivity",
+    "r/AskAcademia",
+    "r/teachers",
+    "r/education",
+    "r/Canva",
+    "r/ChatGPT",
+    "r/ChatGPTPro",
+    "r/ClaudeAI",
+    "r/artificial",
+    "r/design",
+    "r/contentcreation",
+    "r/presentations"
+  ],
+  "postsPerWeek": 3
+}
