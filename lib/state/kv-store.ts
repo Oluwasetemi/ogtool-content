@@ -201,16 +201,64 @@ export class KVStorageAdapter implements StorageAdapter {
   }
 
   /**
-   * Deserialize state (ensure proper types)
+   * Deserialize state (ensure proper types and structure)
    */
   private deserializeState(state: any): StateStore {
+    // Start with default structure
+    const defaultState: StateStore = {
+      currentWeek: null,
+      history: { weeks: [], totalPosts: 0, totalComments: 0 },
+      settings: {
+        autoApprove: false,
+        qualityThreshold: 7.0,
+        postsPerWeek: 3,
+      },
+      quotas: {
+        personaUsage: {},
+        subredditUsage: {},
+        keywordUsage: {},
+      },
+      patterns: {
+        personaPairings: {},
+        subredditRotation: [],
+        timingPatterns: [],
+      },
+      qualityMetrics: {
+        averageNaturalnessScore: 0,
+        averagePersonaConsistency: 0,
+        averageDistributionBalance: 0,
+        weeklyScores: [],
+      },
+    };
+
+    // Merge stored state with defaults (stored state takes precedence)
     return {
+      ...defaultState,
       ...state,
       history: {
+        ...defaultState.history,
         ...state.history,
         weeks: (state.history?.weeks || []).map((week: any) =>
           this.deserializeCalendar(week)
         ),
+      },
+      settings: {
+        ...defaultState.settings,
+        ...state.settings,
+      },
+      quotas: {
+        personaUsage: state.quotas?.personaUsage || {},
+        subredditUsage: state.quotas?.subredditUsage || {},
+        keywordUsage: state.quotas?.keywordUsage || {},
+      },
+      patterns: {
+        personaPairings: state.patterns?.personaPairings || {},
+        subredditRotation: state.patterns?.subredditRotation || [],
+        timingPatterns: state.patterns?.timingPatterns || [],
+      },
+      qualityMetrics: {
+        ...defaultState.qualityMetrics,
+        ...state.qualityMetrics,
       },
     };
   }
