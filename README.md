@@ -442,6 +442,7 @@ lib/
 
 1. Edit `data/company.json` - add to `subreddits` array
 2. Edit `lib/core/constants.ts` - add to `SUBREDDIT_CULTURE_MAP`:
+
 ```typescript
 'r/newsubreddit': {
   segments: ['target_audience_1', 'target_audience_2'],
@@ -468,11 +469,13 @@ lib/
 ### Other Platforms
 
 1. Build the app:
+
 ```bash
 npm run build
 ```
 
 2. Start the production server:
+
 ```bash
 npm start
 ```
@@ -555,6 +558,7 @@ When ready to migrate from JSON to Supabase:
 
 1. Create Supabase project and get connection string
 2. Run migration script:
+
 ```bash
 npm run migrate:supabase
 ```
@@ -586,10 +590,9 @@ See `IMPLEMENTATION.md` for detailed migration guide.
 
 ## Support
 
-For detailed algorithm documentation, see `IMPLEMENTATION.md`.
+For detailed algorithm documentation, see `/lib/core`, `/lib/engines`, `/lib/scoring`, `/lib/state`.
 
-For algorithm design details, see the plan file at:
-`/Users/oluwasetemi/.claude/plans/tranquil-sniffing-avalanche.md`
+
 
 ## License
 
