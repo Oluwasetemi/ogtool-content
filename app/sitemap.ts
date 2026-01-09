@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { jsonStorage } from '@/lib/state/json-store';
+import { storage } from '@/lib/state/storage-factory';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
@@ -7,7 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Get all calendar IDs
   let calendars: string[] = [];
   try {
-    calendars = await jsonStorage.listCalendars();
+    calendars = await storage.listCalendars();
   } catch (error) {
     console.error('Error loading calendars for sitemap:', error);
   }

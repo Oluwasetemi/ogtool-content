@@ -1,6 +1,6 @@
 import { StateStore, WeeklyCalendar, PersonaQuota, SubredditQuota, KeywordQuota } from '../core/types';
 import { STATE_RETENTION } from '../core/constants';
-import { jsonStorage } from './json-store';
+import { storage } from './storage-factory';
 
 /**
  * State Manager - Handle all state operations
@@ -13,7 +13,7 @@ export class StateManager {
    * Load state from storage
    */
   async loadState(): Promise<StateStore> {
-    this.state = await jsonStorage.loadState();
+    this.state = await storage.loadState();
     return this.state;
   }
 
@@ -25,7 +25,7 @@ export class StateManager {
     if (!stateToSave) {
       throw new Error('No state to save');
     }
-    await jsonStorage.saveState(stateToSave);
+    await storage.saveState(stateToSave);
     this.state = stateToSave;
   }
 

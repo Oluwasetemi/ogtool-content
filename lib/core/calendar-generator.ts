@@ -13,7 +13,7 @@ import { distributePostsTemporally } from '../engines/timing';
 import { scoreWeeklyCalendar, meetsQualityThreshold } from '../scoring/quality-scorer';
 import { generatePostText, generateCommentTexts } from '../ai/text-generator';
 import { stateManager } from '../state/state-manager';
-import { jsonStorage } from '../state/json-store';
+import { storage } from '../state/storage-factory';
 
 /**
  * Calendar Generator - Main orchestration for weekly calendar generation
@@ -209,7 +209,7 @@ async function generatePostTexts(
  * Save calendar and update state
  */
 export async function saveCalendar(calendar: WeeklyCalendar): Promise<void> {
-  await jsonStorage.saveCalendar(calendar);
+  await storage.saveCalendar(calendar);
 
   // Update state
   await stateManager.updateStateWithCalendar(calendar);
@@ -221,11 +221,11 @@ export async function saveCalendar(calendar: WeeklyCalendar): Promise<void> {
  * Approve and mark calendar as ready
  */
 export async function approveCalendar(weekId: string): Promise<WeeklyCalendar> {
-  const calendar = await jsonStorage.loadCalendar(weekId);
+  const calendar = await storage.loadCalendar(weekId);
 
   calendar.status = 'approved';
 
-  await jsonStorage.saveCalendar(calendar);
+  await storage.saveCalendar(calendar);
 
   console.log(`Calendar ${weekId} approved`);
 
@@ -236,14 +236,14 @@ export async function approveCalendar(weekId: string): Promise<WeeklyCalendar> {
  * List all calendars
  */
 export async function listCalendars(): Promise<string[]> {
-  return await jsonStorage.listCalendars();
+  return await storage.listCalendars();
 }
 
 /**
  * Load calendar by ID
  */
 export async function loadCalendar(weekId: string): Promise<WeeklyCalendar> {
-  return await jsonStorage.loadCalendar(weekId);
+  return await storage.loadCalendar(weekId);
 }
 
 // ============================================================================
@@ -280,9 +280,9 @@ export async function generateCalendarFromStorage(
 ): Promise<WeeklyCalendar> {
   console.log('Loading configuration from storage...');
 
-  const companyInfo = await jsonStorage.loadCompanyInfo();
-  const personas = await jsonStorage.loadPersonas();
-  const keywords = await jsonStorage.loadKeywords();
+  const companyInfo = await storage.loadCompanyInfo();
+  const personas = await storage.loadPersonas();
+  const keywords = await storage.loadKeywords();
 
   const params: GenerationParams = {
     companyInfo,
