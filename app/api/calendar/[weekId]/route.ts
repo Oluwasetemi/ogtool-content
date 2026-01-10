@@ -10,15 +10,30 @@ export async function GET(
 ) {
   try {
     const { weekId } = await params;
+
+    console.log(`Fetching calendar: ${weekId}`);
+
+    // Try to load the calendar
     const calendar = await loadCalendar(weekId);
+
+    console.log(`Calendar found: ${calendar.weekId}, posts: ${calendar.posts.length}`);
 
     return NextResponse.json({ calendar });
   } catch (error) {
-    console.error('Error loading calendar:', error);
+    console.error(`Calendar not found: ${(await params).weekId}`);
+    console.error('Error details:', error);
+
+    // List available calendars for debugging
+    const { storage } = await import('@/lib/state/storage-factory');
+    const availableCalendars = await storage.listCalendars();
+    console.log('Available calendars:', availableCalendars);
+
     return NextResponse.json(
       {
         error: 'Calendar not found',
         message: error instanceof Error ? error.message : 'Unknown error',
+        weekId: (await params).weekId,
+        availableCalendars,
       },
       { status: 404 }
     );

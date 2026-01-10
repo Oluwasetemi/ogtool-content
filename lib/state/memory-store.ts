@@ -34,17 +34,71 @@ export class MemoryStorageAdapter implements StorageAdapter {
     // Load default data from static files if available
     // This runs once when the adapter is created
     try {
-      // In production, you would load these from environment variables or a database
-      // For now, we'll use empty defaults
+      // Initialize complete state structure
       this.state = {
-        currentWeek: null,
-        history: { weeks: [] },
-        settings: {
-          autoApprove: false,
-          qualityThreshold: 7.0,
-          postsPerWeek: 3,
+        history: {
+          weeks: [],
+          totalPosts: 0,
+          totalComments: 0,
+        },
+        quotas: {
+          personaUsage: {},
+          subredditUsage: {},
+          keywordUsage: {},
+        },
+        patterns: {
+          personaPairings: {},
+          subredditRotation: [],
+          timingPatterns: [],
+        },
+        qualityMetrics: {
+          averageNaturalnessScore: 0,
+          averagePersonaConsistency: 0,
+          averageDistributionBalance: 0,
+          weeklyScores: [],
         },
       };
+
+      // Try to load company, personas, and keywords from data files
+      try {
+        const fs = await import('fs/promises');
+        const path = await import('path');
+
+        // Load company info
+        try {
+          const companyData = await fs.readFile(
+            path.join(process.cwd(), 'data', 'company.json'),
+            'utf-8'
+          );
+          this.company = JSON.parse(companyData);
+        } catch {
+          console.log('No company.json found in data/, using defaults');
+        }
+
+        // Load personas
+        try {
+          const personasData = await fs.readFile(
+            path.join(process.cwd(), 'data', 'personas.json'),
+            'utf-8'
+          );
+          this.personas = JSON.parse(personasData);
+        } catch {
+          console.log('No personas.json found in data/');
+        }
+
+        // Load keywords
+        try {
+          const keywordsData = await fs.readFile(
+            path.join(process.cwd(), 'data', 'keywords.json'),
+            'utf-8'
+          );
+          this.keywords = JSON.parse(keywordsData);
+        } catch {
+          console.log('No keywords.json found in data/');
+        }
+      } catch (error) {
+        console.log('Could not load data from files:', error);
+      }
     } catch (error) {
       console.error('Failed to initialize defaults:', error);
     }
@@ -64,9 +118,14 @@ export class MemoryStorageAdapter implements StorageAdapter {
   async saveCalendar(calendar: WeeklyCalendar): Promise<void> {
     validateCalendar(calendar);
     this.calendars.set(calendar.weekId, calendar);
+    console.log(`📝 Calendar saved to memory: ${calendar.weekId}`);
+    console.log(`   Total calendars in memory: ${this.calendars.size}`);
   }
 
   async loadCalendar(weekId: string): Promise<WeeklyCalendar> {
+    console.log(`🔍 Looking for calendar: ${weekId}`);
+    console.log(`   Calendars in memory: ${Array.from(this.calendars.keys()).join(', ') || 'none'}`);
+
     const calendar = this.calendars.get(weekId);
     if (!calendar) {
       throw new Error(`Calendar not found: ${weekId}`);
