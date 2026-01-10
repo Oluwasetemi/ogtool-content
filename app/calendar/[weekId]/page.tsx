@@ -5,28 +5,16 @@ import { PostView } from '@/components/calendar/post-view';
 import { QualityBreakdown } from '@/components/calendar/quality-badge';
 import { ApproveButton } from '@/components/calendar/approve-button';
 import { constructMetadata } from '@/lib/metadata';
+import { loadCalendar } from '@/lib/core/calendar-generator';
 
 async function getCalendar(weekId: string) {
   try {
-    // Use absolute URL for production, relative for development
-    const baseUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-
-    const url = `${baseUrl}/api/calendar/${weekId}`;
-    console.log('Fetching calendar from:', url);
-
-    const res = await fetch(url, { cache: 'no-store' });
-
-    if (!res.ok) {
-      console.error('Calendar fetch failed:', res.status, res.statusText);
-      return null;
-    }
-
-    const data = await res.json();
-    return data.calendar;
+    // Load calendar directly from storage (no HTTP call needed)
+    console.log('Loading calendar:', weekId);
+    const calendar = await loadCalendar(weekId);
+    return calendar;
   } catch (error) {
-    console.error('Error fetching calendar:', error);
+    console.error('Error loading calendar:', error);
     return null;
   }
 }
