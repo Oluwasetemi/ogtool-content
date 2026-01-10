@@ -8,11 +8,21 @@ import { constructMetadata } from '@/lib/metadata';
 
 async function getCalendar(weekId: string) {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/calendar/${weekId}`,
-      { cache: 'no-store' }
-    );
-    if (!res.ok) return null;
+    // Use absolute URL for production, relative for development
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+
+    const url = `${baseUrl}/api/calendar/${weekId}`;
+    console.log('Fetching calendar from:', url);
+
+    const res = await fetch(url, { cache: 'no-store' });
+
+    if (!res.ok) {
+      console.error('Calendar fetch failed:', res.status, res.statusText);
+      return null;
+    }
+
     const data = await res.json();
     return data.calendar;
   } catch (error) {
