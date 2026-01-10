@@ -3,8 +3,5 @@
     "app/api/calendar/generate/route.ts": {
       "maxDuration": 300
     }
-  },
-  "env": {
-    "OPENAI_API_KEY": "@openai-api-key"
   }
 }
