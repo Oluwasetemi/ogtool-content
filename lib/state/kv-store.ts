@@ -1,4 +1,4 @@
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
 import {
   StorageAdapter,
   StateStore,
@@ -15,18 +15,25 @@ import {
 } from '../utils/validation';
 
 /**
- * Vercel KV (Redis) storage adapter for production environments
+ * Upstash Redis storage adapter for production environments
  * Data persists across deployments in Vercel KV database
  */
 export class KVStorageAdapter implements StorageAdapter {
+  private readonly redis: Redis;
   private readonly prefix = 'ogtools:';
+
+  constructor() {
+    // Initialize Redis from environment variables
+    // Requires: KV_REST_API_URL and KV_REST_API_TOKEN
+    this.redis = Redis.fromEnv();
+  }
 
   private getKey(key: string): string {
     return `${this.prefix}${key}`;
   }
 
   async loadState(): Promise<StateStore> {
-    const state = await kv.get<StateStore>(this.getKey('state'));
+    const state = await this.redis.get<StateStore>(this.getKey('state'));
     
     if (!state) {
       // Return default state if not found
@@ -61,7 +68,7 @@ export class KVStorageAdapter implements StorageAdapter {
   }
 
   async saveState(state: StateStore): Promise<void> {
-    await kv.set(this.getKey('state'), state);
+    await this.redis.set(this.getKey('state'), state);
   }
 
   async saveCalendar(calendar: WeeklyCalendar): Promise<void> {
@@ -71,14 +78,14 @@ export class KVStorageAdapter implements StorageAdapter {
     const serialized = this.serializeCalendar(calendar);
     
     // Store calendar
-    await kv.set(this.getKey(`calendar:${calendar.weekId}`), serialized);
+    await this.redis.set(this.getKey(`calendar:${calendar.weekId}`), serialized);
     
     // Add to calendar list
-    await kv.sadd(this.getKey('calendars:list'), calendar.weekId);
+    await this.redis.sadd(this.getKey('calendars:list'), calendar.weekId);
   }
 
   async loadCalendar(weekId: string): Promise<WeeklyCalendar> {
-    const calendar = await kv.get<any>(this.getKey(`calendar:${weekId}`));
+    const calendar = await this.redis.get<any>(this.getKey(`calendar:${weekId}`));
     
     if (!calendar) {
       throw new Error(`Calendar not found: ${weekId}`);
@@ -88,12 +95,12 @@ export class KVStorageAdapter implements StorageAdapter {
   }
 
   async listCalendars(): Promise<string[]> {
-    const calendars = await kv.smembers(this.getKey('calendars:list'));
+    const calendars = await this.redis.smembers(this.getKey('calendars:list'));
     return (calendars as string[]).sort();
   }
 
   async loadCompanyInfo(): Promise<CompanyInfo> {
-    const company = await kv.get<CompanyInfo>(this.getKey('company'));
+    const company = await this.redis.get<CompanyInfo>(this.getKey('company'));
     
     if (!company) {
       // Return default company info
@@ -111,7 +118,7 @@ export class KVStorageAdapter implements StorageAdapter {
   }
 
   async loadPersonas(): Promise<Persona[]> {
-    const personas = await kv.get<Persona[]>(this.getKey('personas'));
+    const personas = await this.redis.get<Persona[]>(this.getKey('personas'));
     
     if (!personas) {
       return [];
@@ -133,7 +140,7 @@ export class KVStorageAdapter implements StorageAdapter {
   }
 
   async loadKeywords(): Promise<Keyword[]> {
-    const keywords = await kv.get<Keyword[]>(this.getKey('keywords'));
+    const keywords = await this.redis.get<Keyword[]>(this.getKey('keywords'));
     
     if (!keywords) {
       return [];
@@ -155,12 +162,12 @@ export class KVStorageAdapter implements StorageAdapter {
   }
 
   async deleteCalendar(weekId: string): Promise<void> {
-    await kv.del(this.getKey(`calendar:${weekId}`));
-    await kv.srem(this.getKey('calendars:list'), weekId);
+    await this.redis.del(this.getKey(`calendar:${weekId}`));
+    await this.redis.srem(this.getKey('calendars:list'), weekId);
   }
 
   async calendarExists(weekId: string): Promise<boolean> {
-    const exists = await kv.exists(this.getKey(`calendar:${weekId}`));
+    const exists = await this.redis.exists(this.getKey(`calendar:${weekId}`));
     return exists === 1;
   }
 
@@ -273,17 +280,17 @@ export class KVStorageAdapter implements StorageAdapter {
   }): Promise<void> {
     if (data.company) {
       validateCompanyInfo(data.company);
-      await kv.set(this.getKey('company'), data.company);
+      await this.redis.set(this.getKey('company'), data.company);
     }
     
     if (data.personas) {
       data.personas.forEach(validatePersona);
-      await kv.set(this.getKey('personas'), data.personas);
+      await this.redis.set(this.getKey('personas'), data.personas);
     }
     
     if (data.keywords) {
       data.keywords.forEach(validateKeyword);
-      await kv.set(this.getKey('keywords'), data.keywords);
+      await this.redis.set(this.getKey('keywords'), data.keywords);
     }
   }
 }

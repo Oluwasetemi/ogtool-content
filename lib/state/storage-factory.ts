@@ -4,10 +4,11 @@ import { MemoryStorageAdapter } from './memory-store';
 import { KVStorageAdapter } from './kv-store';
 
 /**
- * Determines if Vercel KV is available
+ * Determines if Upstash Redis (Vercel KV) is available
  */
 function isKVAvailable(): boolean {
-  // Check if KV environment variables are set
+  // Check if Upstash Redis environment variables are set
+  // These are automatically set by Vercel when KV database is created
   return !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
 }
 
@@ -34,9 +35,9 @@ function isFilesystemAvailable(): boolean {
  * Priority: KV > Filesystem > Memory
  */
 export function createStorageAdapter(): StorageAdapter {
-  // Priority 1: Vercel KV (best for production)
+  // Priority 1: Upstash Redis / Vercel KV (best for production)
   if (isKVAvailable()) {
-    console.log('✅ Using Vercel KV storage - data persists across deployments');
+    console.log('✅ Using Upstash Redis (Vercel KV) storage - data persists across deployments');
     return new KVStorageAdapter();
   }
 
